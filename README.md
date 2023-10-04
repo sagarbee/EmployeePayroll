@@ -28,6 +28,7 @@ there is employee with id 2 found
 
 ![1 (10)](https://github.com/sagarbee/EmployeePayroll/assets/65588552/27c42a1c-8ff4-4ba5-9694-155e50caa0b2)
 
+New Employees Username and Password generated
 ![1 (11)](https://github.com/sagarbee/EmployeePayroll/assets/65588552/1c8fa62d-0c97-42a4-9e49-e3e811f01862)
 
 # Update Record
