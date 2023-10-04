@@ -88,9 +88,36 @@ Calculate salary deduction by amount 500
 ![Screenshot (58)](https://github.com/sagarbee/EmployeePayroll/assets/65588552/1b47f436-a085-4d0e-bf3c-b64e64bb86fd)
 
 Saving deduce salary by amount 500
+
 ![Screenshot (59)](https://github.com/sagarbee/EmployeePayroll/assets/65588552/9649c105-0e20-4a51-b62b-13b732a33baf)
 
 ![Screenshot (60)](https://github.com/sagarbee/EmployeePayroll/assets/65588552/870823e5-2cd8-438e-b6fa-42027cfa24dc)
 
+New Salary
+
+
 ![Screenshot (61)](https://github.com/sagarbee/EmployeePayroll/assets/65588552/4f393e07-4062-4d96-9b31-7bc5271b36e6)
+
+# Allowance Button
+
+Employee 11 gets some allowance for his work
+
+![Screenshot (63)](https://github.com/sagarbee/EmployeePayroll/assets/65588552/444436cd-38ae-4fb4-8518-73bc34b1995d)
+
+calculate total amount
+
+![Screenshot (64)](https://github.com/sagarbee/EmployeePayroll/assets/65588552/4191e278-adc6-4919-9f6e-96fabadcbfd7)
+19d939784)
+
+Save in database
+
+![Screenshot (62)](https://github.com/sagarbee/EmployeePayroll/assets/65588552/089ffe5d-4905-48ca-a63c-1789184ebd52)
+
+# Audit Trail in menubar
+
+![Screenshot (66)](https://github.com/sagarbee/EmployeePayroll/assets/65588552/a81795fa-6830-4002-a58c-c3e5709f44f6)
+
+All detail of employee 1 logged in
+
+![Screenshot (65)](https://github.com/sagarbee/EmployeePayroll/assets/65588552/c7fe14c7-d7a4-42d0-82c0-b32143bac9e4)
 
