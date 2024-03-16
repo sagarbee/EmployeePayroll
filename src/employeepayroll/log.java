@@ -73,6 +73,7 @@ PreparedStatement pst = null;
         jSeparator3 = new javax.swing.JSeparator();
         txt_combo = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         ibl_date = new javax.swing.JMenu();
@@ -111,13 +112,29 @@ PreparedStatement pst = null;
 
         txt_username.setBackground(new java.awt.Color(38, 47, 65));
         txt_username.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txt_username.setForeground(new java.awt.Color(255, 255, 255));
+        txt_username.setForeground(new java.awt.Color(255, 255, 204));
         txt_username.setBorder(null);
+        txt_username.setSelectionColor(new java.awt.Color(255, 51, 51));
+        txt_username.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_usernameActionPerformed(evt);
+            }
+        });
         jPanel1.add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 160, 240, -1));
-        jPanel1.add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 220, 240, -1));
+
+        txt_password.setBackground(new java.awt.Color(38, 47, 65));
+        txt_password.setForeground(new java.awt.Color(255, 255, 204));
+        txt_password.setBorder(null);
+        txt_password.setSelectionColor(new java.awt.Color(255, 51, 51));
+        txt_password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_passwordActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 220, 240, 20));
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, 240, 10));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 240, 240, 10));
 
         jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, 240, 10));
@@ -137,6 +154,9 @@ PreparedStatement pst = null;
             }
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 330, -1, -1));
+
+        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, 240, 10));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 440));
 
@@ -178,7 +198,7 @@ PreparedStatement pst = null;
             String access = (txt_combo.getSelectedItem().toString());
             if(access == "Admin"){
                 if(count == 1){
-                    JOptionPane.showMessageDialog(null,"Suceessfully LogIN");
+                    JOptionPane.showMessageDialog(null,"Suceessfully Login");
                     MainMenu j = new MainMenu();
                     j.setVisible(true);
                     this.dispose();
@@ -226,6 +246,14 @@ PreparedStatement pst = null;
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_comboActionPerformed
 
+    private void txt_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_passwordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_passwordActionPerformed
+
+    private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_usernameActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -272,6 +300,7 @@ PreparedStatement pst = null;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel password;
     private javax.swing.JComboBox<String> txt_combo;
