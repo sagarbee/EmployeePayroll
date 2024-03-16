@@ -97,7 +97,7 @@ PreparedStatement pst = null;
         jScrollPane1 = new javax.swing.JScrollPane();
         table_allowance = new javax.swing.JTable();
         jLabel14 = new javax.swing.JLabel();
-        txt_hw = new javax.swing.JTextField();
+        txt_totalOvertime = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         txt_rate = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
@@ -251,11 +251,11 @@ PreparedStatement pst = null;
 
         jLabel14.setText("Total Overtime:");
 
-        txt_hw.setEditable(false);
-        txt_hw.setText("0");
-        txt_hw.addActionListener(new java.awt.event.ActionListener() {
+        txt_totalOvertime.setEditable(false);
+        txt_totalOvertime.setText("0");
+        txt_totalOvertime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_hwActionPerformed(evt);
+                txt_totalOvertimeActionPerformed(evt);
             }
         });
 
@@ -346,7 +346,7 @@ PreparedStatement pst = null;
                                                 .addGap(12, 12, 12)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(txt_rate, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(txt_hw, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                                    .addComponent(txt_totalOvertime, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -429,7 +429,7 @@ PreparedStatement pst = null;
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel14)
-                                    .addComponent(txt_hw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txt_totalOvertime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(22, 22, 22)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txt_rate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -577,9 +577,10 @@ PreparedStatement pst = null;
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_medical1ActionPerformed
 
-    private void txt_hwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hwActionPerformed
+    private void txt_totalOvertimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_totalOvertimeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_hwActionPerformed
+        
+    }//GEN-LAST:event_txt_totalOvertimeActionPerformed
 
     private void txt_rateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_rateActionPerformed
         // TODO add your handling code here:
@@ -591,18 +592,18 @@ PreparedStatement pst = null;
  try {
 
             int value = Emp.empId;
-            String value1 =  txt_salary.getText();
-            String value2 =  txt_bonus.getText();
-            String value3 =  txt_medical.getText();
-            String value4 =  txt_other.getText();
-            String value5 =  txt_rate.getText();
-            String value6 =  txt_hw.getText();
-            String value7 =  lbl_total.getText();  
-            String value8 =  txt_empid.getText();
-            String value9 =  txt_firstname.getText();
-            String value10 = txt_lastname.getText();
+            double empSal =  Double.parseDouble(txt_salary.getText());
+            double empBonus =Double.parseDouble(txt_bonus.getText());
+            double empMed =  Double.parseDouble(txt_medical.getText());
+            double empOther =  Double.parseDouble(txt_other.getText());
+            String empRate =  txt_rate.getText();
+            String overtime  =  txt_overtime.getText();
+            String total =  lbl_total.getText();  
+            String empid =  txt_empid.getText();
+            String fname =  txt_firstname.getText();
+            String lname = txt_lastname.getText();
      
-           String sql= "insert into allowance (created_by,id,overtime,medical,bonus,other,Salary,rate,total_allowance,first_name,last_name) values ('"+value+"','"+value8+"','"+value6+"','"+value3+"','"+value2+"','"+value4+"','"+value1+"','"+value5+"','"+value7+"','"+value9+"','"+value10+"')";
+           String sql= "insert into allowance (id,overtime,medical,bonus,other,emp_id,salary,rate,total_allowance,first_name,last_name,created_by) values ('"+value+"','"+overtime+"','"+empMed+"','"+empBonus+"','"+empOther+"','"+empid+"','"+empSal+"','"+empRate+"','"+total+"','"+fname+"','"+lname+"','"+value+"')";
                   
                  
             pst=conn.prepareStatement(sql);
@@ -651,9 +652,9 @@ PreparedStatement pst = null;
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        int salary = Integer.parseInt(txt_salary.getText());
+        double salary = Double.parseDouble(txt_salary.getText());
         int overtime = Integer.parseInt(txt_overtime.getText());
-
+ 
         double eight = 8;
         double days = 25;
         double dbop = 0;
@@ -662,9 +663,9 @@ PreparedStatement pst = null;
         //calculate the total hours of overtime
         double Total_Overtime = overtime * overtimeRate;
         String x = String.valueOf(Total_Overtime);
-        txt_hw.setText(x);
+        txt_totalOvertime.setText(x);
 
-        //calculate overall overtime 
+        //calculate Daily basic overtime pay overall overtime 
         dbop = salary /days/eight;
         String s = String.valueOf(dbop);
         txt_rate.setText(s);
@@ -745,7 +746,6 @@ PreparedStatement pst = null;
     private javax.swing.JTextField txt_department;
     private javax.swing.JTextField txt_empid;
     private javax.swing.JTextField txt_firstname;
-    private javax.swing.JTextField txt_hw;
     private javax.swing.JTextField txt_job;
     private javax.swing.JTextField txt_lastname;
     private javax.swing.JTextField txt_medical;
@@ -756,5 +756,6 @@ PreparedStatement pst = null;
     private javax.swing.JTextField txt_rate;
     private javax.swing.JTextField txt_salary;
     private javax.swing.JTextField txt_search;
+    private javax.swing.JTextField txt_totalOvertime;
     // End of variables declaration//GEN-END:variables
 }

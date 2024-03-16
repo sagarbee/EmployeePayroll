@@ -106,7 +106,7 @@
                                               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="txt_rate" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
-                                                  <Component id="txt_hw" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
+                                                  <Component id="txt_totalOvertime" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -221,7 +221,7 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txt_hw" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_totalOvertime" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="22" pref="22" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -458,13 +458,13 @@
         <Property name="text" type="java.lang.String" value="Total Overtime:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txt_hw">
+    <Component class="javax.swing.JTextField" name="txt_totalOvertime">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_hwActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_totalOvertimeActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel15">
