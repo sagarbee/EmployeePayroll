@@ -63,10 +63,10 @@ PreparedStatement pst = null;
         jLabel12 = new javax.swing.JLabel();
         r_percentage = new javax.swing.JRadioButton();
         r_amount = new javax.swing.JRadioButton();
-        txt_d1 = new javax.swing.JTextField();
+        txt_percentage = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        txt_d2 = new javax.swing.JTextField();
+        txt_amount = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         lbl_total = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -74,7 +74,7 @@ PreparedStatement pst = null;
         jLabel19 = new javax.swing.JLabel();
         txt_reason = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        calculate = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel20 = new javax.swing.JLabel();
         lbl_emp = new javax.swing.JLabel();
@@ -210,11 +210,11 @@ PreparedStatement pst = null;
             }
         });
 
-        txt_d1.setEditable(false);
-        txt_d1.setBackground(new java.awt.Color(255, 204, 204));
-        txt_d1.addActionListener(new java.awt.event.ActionListener() {
+        txt_percentage.setEditable(false);
+        txt_percentage.setBackground(new java.awt.Color(255, 204, 204));
+        txt_percentage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_d1ActionPerformed(evt);
+                txt_percentageActionPerformed(evt);
             }
         });
 
@@ -222,11 +222,11 @@ PreparedStatement pst = null;
 
         jLabel14.setText("Amount: ");
 
-        txt_d2.setEditable(false);
-        txt_d2.setBackground(new java.awt.Color(255, 204, 204));
-        txt_d2.addActionListener(new java.awt.event.ActionListener() {
+        txt_amount.setEditable(false);
+        txt_amount.setBackground(new java.awt.Color(255, 204, 204));
+        txt_amount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_d2ActionPerformed(evt);
+                txt_amountActionPerformed(evt);
             }
         });
 
@@ -262,10 +262,10 @@ PreparedStatement pst = null;
             }
         });
 
-        jButton2.setText("CALCULATE");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        calculate.setText("CALCULATE");
+        calculate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                calculateActionPerformed(evt);
             }
         });
 
@@ -346,11 +346,11 @@ PreparedStatement pst = null;
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel13)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txt_d1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_percentage, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(35, 35, 35)
                             .addComponent(jLabel14)
                             .addGap(18, 18, 18)
-                            .addComponent(txt_d2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(68, 68, 68)
                             .addComponent(jLabel12)
@@ -376,7 +376,7 @@ PreparedStatement pst = null;
                 .addGap(158, 158, 158)
                 .addComponent(jButton1)
                 .addGap(26, 26, 26)
-                .addComponent(jButton2)
+                .addComponent(calculate)
                 .addGap(26, 26, 26)
                 .addComponent(jButton3))
         );
@@ -439,10 +439,10 @@ PreparedStatement pst = null;
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_d1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_percentage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txt_d2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel14)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -460,7 +460,7 @@ PreparedStatement pst = null;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton3)
-                    .addComponent(jButton2))
+                    .addComponent(calculate))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
@@ -517,7 +517,7 @@ PreparedStatement pst = null;
                 txt_salary.setText(add6);
 
                               
-                String add7 = rs.getString("status");
+                String add7 = rs.getString("Status");
                 txt_status.setText(add7);
                 
                 String add8 = rs.getString("Date_hired");
@@ -591,34 +591,34 @@ PreparedStatement pst = null;
         // TODO add your handling code here:
         r_percentage.setSelected(true);
         r_amount.setSelected(false);
-        txt_d2.setEnabled(false);
-        txt_d1.setEditable(true);
-        txt_d1.setEnabled(true);
-        txt_d1.setText("");
+        txt_amount.setEnabled(false);
+        txt_percentage.setEditable(true);
+        txt_percentage.setEnabled(true);
+        txt_percentage.setText("");
     }//GEN-LAST:event_r_percentageActionPerformed
 
     private void r_amountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r_amountActionPerformed
         // TODO add your handling code here:
         r_amount.setSelected(true);
         r_percentage.setSelected(false);
-        txt_d1.setEnabled(false);
-        txt_d2.setEditable(true);
-        txt_d2.setEnabled(true);
-        txt_d2.setText("");
+        txt_percentage.setEnabled(false);
+        txt_amount.setEditable(true);
+        txt_amount.setEnabled(true);
+        txt_amount.setText("");
     }//GEN-LAST:event_r_amountActionPerformed
 
-    private void txt_d1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_d1ActionPerformed
+    private void txt_percentageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_percentageActionPerformed
         // TODO add your handling code here:
 
         
         
         
-    }//GEN-LAST:event_txt_d1ActionPerformed
+    }//GEN-LAST:event_txt_percentageActionPerformed
 
-    private void txt_d2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_d2ActionPerformed
+    private void txt_amountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_amountActionPerformed
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_txt_d2ActionPerformed
+    }//GEN-LAST:event_txt_amountActionPerformed
 
     private void txt_reasonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_reasonActionPerformed
         // TODO add your handling code here:
@@ -641,8 +641,8 @@ PreparedStatement pst = null;
                 pst=conn.prepareStatement(sql);
                 pst.setString(1,txt_firstname.getText());
                 pst.setString(2,txt_lastname.getText());
-                pst.setString(3,txt_salary.getText());
-                pst.setString(4,lbl_total.getText());
+                pst.setDouble(3,Double.parseDouble(txt_salary.getText()));
+                pst.setDouble(4,Double.parseDouble(lbl_total.getText()));
                 pst.setString(5,txt_reason.getText());
                 pst.setString(6,txt_empid.getText());
   
@@ -676,41 +676,43 @@ PreparedStatement pst = null;
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        txt_search.setText("");
         txt_empid.setText("");
         txt_firstname.setText("");
         txt_lastname.setText("");
         txt_dob.setText("");
         txt_status.setText("");
         txt_salary.setText("");
-        txt_d1.setText("");
-        txt_d2.setText("");
+        txt_percentage.setText("");
+        txt_amount.setText("");
         txt_job.setText("");
         txt_department.setText("");
         txt_doj.setText("");
         txt_designation.setText("");
-        
         txt_reason.setText("");
+        lbl_total.setText("0.00");
+        lbl_deduction.setText("0.00");
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void calculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateActionPerformed
         // TODO add your handling code here:
-        int salary = Integer.parseInt(txt_salary.getText());
+        double salary = Double.parseDouble(txt_salary.getText());
         
         if(r_percentage.isSelected()== true){
-        int percentage = Integer.parseInt(txt_d1.getText());
-        //calculate the total hours of overtime
-        int total_percentage_deduction = salary /100 * percentage;
+        double percentage = Double.parseDouble(txt_percentage.getText());
+
+        double total_percentage_deduction = salary /100 * percentage;
         String x = String.valueOf(total_percentage_deduction);
-        int sal = salary - total_percentage_deduction;
+        double sal = salary - total_percentage_deduction;
         lbl_total.setText(x);
         lbl_deduction.setText(String.valueOf(sal));
-         }
+        }
         
         if(r_amount.isSelected()== true){
-        int deduction = Integer.parseInt(txt_d2.getText());
-        //calculate the total hours of overtime
-        int total_amount_deduction =  salary - deduction;
+        double deduction = Double.parseDouble(txt_amount.getText());
+
+        double total_amount_deduction =  salary - deduction;
         String s = String.valueOf(total_amount_deduction);
        
         lbl_deduction.setText(s);
@@ -718,7 +720,7 @@ PreparedStatement pst = null;
 
         }
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_calculateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -756,8 +758,8 @@ PreparedStatement pst = null;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton calculate;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -782,8 +784,7 @@ PreparedStatement pst = null;
     private javax.swing.JLabel lbl_total;
     private javax.swing.JRadioButton r_amount;
     private javax.swing.JRadioButton r_percentage;
-    private javax.swing.JTextField txt_d1;
-    private javax.swing.JTextField txt_d2;
+    private javax.swing.JTextField txt_amount;
     private javax.swing.JTextField txt_department;
     private javax.swing.JTextField txt_designation;
     private javax.swing.JTextField txt_dob;
@@ -792,6 +793,7 @@ PreparedStatement pst = null;
     private javax.swing.JTextField txt_firstname;
     private javax.swing.JTextField txt_job;
     private javax.swing.JTextField txt_lastname;
+    private javax.swing.JTextField txt_percentage;
     private javax.swing.JTextField txt_reason;
     private javax.swing.JTextField txt_salary;
     private javax.swing.JTextField txt_search;
