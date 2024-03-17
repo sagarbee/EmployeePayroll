@@ -102,9 +102,9 @@ PreparedStatement pst = null;
         txt_rate = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         lbl_total = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        save = new javax.swing.JButton();
+        calculate = new javax.swing.JButton();
+        clear = new javax.swing.JButton();
         lbl_emp = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
 
@@ -129,6 +129,7 @@ PreparedStatement pst = null;
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(java.awt.Color.lightGray);
 
         jLabel10.setText("Department:");
 
@@ -146,7 +147,6 @@ PreparedStatement pst = null;
 
         jLabel7.setText("Basic Salary:");
 
-        txt_empid.setEditable(false);
         txt_empid.setBackground(new java.awt.Color(255, 204, 204));
         txt_empid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,7 +207,7 @@ PreparedStatement pst = null;
 
         jLabel6.setText("Bonus:");
 
-        txt_medical.setText("0");
+        txt_medical.setText("0.00");
         txt_medical.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_medicalActionPerformed(evt);
@@ -223,7 +223,7 @@ PreparedStatement pst = null;
             }
         });
 
-        txt_other.setText("0");
+        txt_other.setText("0.00");
         txt_other.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_otherActionPerformed(evt);
@@ -232,7 +232,7 @@ PreparedStatement pst = null;
 
         jLabel11.setText("Other:");
 
-        txt_bonus.setText("0");
+        txt_bonus.setText("0.00");
         txt_bonus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_bonusActionPerformed(evt);
@@ -252,7 +252,8 @@ PreparedStatement pst = null;
         jLabel14.setText("Total Overtime:");
 
         txt_totalOvertime.setEditable(false);
-        txt_totalOvertime.setText("0");
+        txt_totalOvertime.setBackground(new java.awt.Color(255, 204, 204));
+        txt_totalOvertime.setText("0.00");
         txt_totalOvertime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_totalOvertimeActionPerformed(evt);
@@ -262,6 +263,7 @@ PreparedStatement pst = null;
         jLabel15.setText("Rate per Hour:");
 
         txt_rate.setEditable(false);
+        txt_rate.setBackground(new java.awt.Color(255, 204, 204));
         txt_rate.setText("0");
         txt_rate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,24 +277,24 @@ PreparedStatement pst = null;
         lbl_total.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_total.setText("0.00");
 
-        jButton1.setText("Save");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        save.setText("Save");
+        save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                saveActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Calculate");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        calculate.setText("Calculate");
+        calculate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                calculateActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Clear");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        clear.setText("Clear");
+        clear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                clearActionPerformed(evt);
             }
         });
 
@@ -351,9 +353,9 @@ PreparedStatement pst = null;
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(calculate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(save, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(6, 6, 6)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -451,11 +453,11 @@ PreparedStatement pst = null;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(save)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
+                        .addComponent(calculate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3))
+                        .addComponent(clear))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -586,7 +588,7 @@ PreparedStatement pst = null;
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_rateActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         // TODO add your handling code here:
         
  try {
@@ -596,9 +598,9 @@ PreparedStatement pst = null;
             double empBonus =Double.parseDouble(txt_bonus.getText());
             double empMed =  Double.parseDouble(txt_medical.getText());
             double empOther =  Double.parseDouble(txt_other.getText());
-            String empRate =  txt_rate.getText();
-            String overtime  =  txt_overtime.getText();
-            String total =  lbl_total.getText();  
+            float empRate =  Float.parseFloat(txt_rate.getText());
+            int overtime  = Integer.parseInt(txt_overtime.getText());
+            double total =  Double.parseDouble(lbl_total.getText());  
             String empid =  txt_empid.getText();
             String fname =  txt_firstname.getText();
             String lname = txt_lastname.getText();
@@ -635,9 +637,9 @@ PreparedStatement pst = null;
 
         
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_saveActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
         // TODO add your handling code here:
         
         txt_empid.setText("");
@@ -646,11 +648,17 @@ PreparedStatement pst = null;
         txt_salary.setText("");
         txt_job.setText("");
         txt_department.setText("");
-       
+        txt_bonus.setText("0.00");
+        txt_medical.setText("0.00");
+        txt_other.setText("0.00");
+        txt_rate.setText("0.00");
+        txt_overtime.setText("0");
+        lbl_total.setText("0.00");  
+        txt_totalOvertime.setText("0.00");
         
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_clearActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void calculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateActionPerformed
         // TODO add your handling code here:
         double salary = Double.parseDouble(txt_salary.getText());
         int overtime = Integer.parseInt(txt_overtime.getText());
@@ -680,7 +688,7 @@ PreparedStatement pst = null;
 
         
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_calculateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -718,9 +726,8 @@ PreparedStatement pst = null;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton calculate;
+    private javax.swing.JButton clear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -741,6 +748,7 @@ PreparedStatement pst = null;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_emp;
     private javax.swing.JLabel lbl_total;
+    private javax.swing.JButton save;
     private javax.swing.JTable table_allowance;
     private javax.swing.JTextField txt_bonus;
     private javax.swing.JTextField txt_department;
