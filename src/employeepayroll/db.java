@@ -11,15 +11,14 @@ import javax.swing.*;
  * @author Sagar
  */
 public class db {
-Connection conn = null;
-PreparedStatement pst=null;
+
     public static Connection java_db(){
     
         try{
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getconnect","root","Pass@123");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/getconnect","root","Pass@123");
         
-        return conn;    
+        return connection;    
          
             
         }catch(Exception e)

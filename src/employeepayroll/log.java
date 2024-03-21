@@ -19,39 +19,39 @@ import java.util.Date;
  * @author Sagar
  */
 public class log extends javax.swing.JFrame {
-Connection conn = null;
-ResultSet rs = null;
-PreparedStatement pst = null;
+
+    Connection connection = null;
+    ResultSet resultSet = null;
+    PreparedStatement pst = null;
 
     /**
      * Creates new form log
      */
     public log() {
         initComponents();
-        
+
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
-        setLocation(size.width/2-getWidth()/2,size.height/2-getHeight()/2);
-        
-        conn = db.java_db();
+        setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
+
+        connection = db.java_db();
         currentDate();
     }
 
-    public void currentDate(){
+    public void currentDate() {
         Calendar cal = new GregorianCalendar();
         int month = cal.get(Calendar.MONTH);
         int year = cal.get(Calendar.YEAR);
         int day = cal.get(Calendar.DAY_OF_MONTH);
-        
-        ibl_date.setText(day+"/"+(month+1)+"/"+year);
+
+        ibl_date.setText(day + "/" + (month + 1) + "/" + year);
         int second = cal.get(Calendar.SECOND);
         int minute = cal.get(Calendar.MINUTE);
         int hour = cal.get(Calendar.HOUR);
-        
-        ibl_time.setText(hour+":"+minute+":"+second);
+
+        ibl_time.setText(hour + ":" + minute + ":" + second);
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -179,64 +179,60 @@ PreparedStatement pst = null;
 
         String sql = "select id,username,password,division from users where (username = ? and password = ? and division = ?)";
 
-        try{
+        try {
             int count = 0;
-            pst = conn.prepareStatement(sql);
-            pst.setString(1,txt_username.getText());
-             pst.setString(2,txt_password.getText());
-            pst.setString(3,txt_combo.getSelectedItem().toString());
+            pst = connection.prepareStatement(sql);
+            pst.setString(1, txt_username.getText());
+            pst.setString(2, txt_password.getText());
+            pst.setString(3, txt_combo.getSelectedItem().toString());
 
-            rs = pst.executeQuery();
-            while(rs.next())
-            {
-                int id = rs.getInt(1);
+            resultSet = pst.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
                 Emp.empId = id;
-                String username = rs.getString("username");
-                Emp.empname =  username;
-                count = count+1;
+                String username = resultSet.getString("username");
+                Emp.empname = username;
+                count = count + 1;
             }
             String access = (txt_combo.getSelectedItem().toString());
-            if(access == "Admin"){
-                if(count == 1){
-                    JOptionPane.showMessageDialog(null,"Suceessfully Login");
+            if (access == "Admin") {
+                if (count == 1) {
+                    JOptionPane.showMessageDialog(null, "Suceessfully Login");
                     MainMenu j = new MainMenu();
                     j.setVisible(true);
                     this.dispose();
-                    
+
                     Date currentDate = GregorianCalendar.getInstance().getTime();
                     DateFormat df = DateFormat.getDateInstance();
-                    String dateString =df.format(currentDate);
-                    
+                    String dateString = df.format(currentDate);
+
                     Date d = new Date();
                     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
                     String timeString = sdf.format(d);
-                    
-                    
+
                     String value0 = timeString;
                     String values = dateString;
-                    
+
                     int value = Emp.empId;
-                    String reg = "insert into audit(emp_id,date,status) values ('"+value+"','"+value0+" / "+values+"','Logged In')";
-                    pst = conn.prepareStatement(reg);
+                    String reg = "insert into audit(emp_id,date,status) values ('" + value + "','" + value0 + " / " + values + "','Logged In')";
+                    pst = connection.prepareStatement(reg);
                     pst.execute();
                     this.dispose();
 
-                }else{
-                    JOptionPane.showMessageDialog(null,"Please Enter Correct username and Password");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please Enter Correct username and Password");
                 }
-             }
-            
-            }catch(Exception e){
-            JOptionPane.showMessageDialog(null, e);
-        }
-        finally{
-          
-            try{
-                rs.close();
-                pst.close();
             }
-            catch(Exception e){
-             
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        } finally {
+
+            try {
+                resultSet.close();
+                pst.close();
+            } catch (Exception e) {
+
             }
         }
 

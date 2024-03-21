@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package employeepayroll;
+
 import java.sql.*;
 import javax.swing.*;
 import java.sql.PreparedStatement;
@@ -14,58 +15,50 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.*;
 import net.proteanit.sql.DbUtils;
+
 /**
  *
  * @author sagar
  */
 public class Audit extends javax.swing.JFrame {
-Connection conn = null;
-ResultSet rs = null;
-PreparedStatement pst = null;
+
+    Connection connection = null;
+    ResultSet resultSet = null;
+    PreparedStatement pst = null;
+
     /**
      * Creates new form Audit
      */
     public Audit() {
         initComponents();
-        conn = db.java_db();
+        connection = db.java_db();
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
-        setLocation(size.width/2-getWidth()/2,size.height/2-getHeight()/2);
+        setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
         Update_table();
     }
-    
-    private void  Update_table()
-    {
-        
-        try{
-            
+
+    private void Update_table() {
+
+        try {
+
             String sql = "select * from Audit";
-            pst=conn.prepareStatement(sql);
-            rs=pst.executeQuery(sql);
-            tbl_1.setModel(DbUtils.resultSetToTableModel(rs));
-            
-        }catch(Exception e){
-            
-            
-            
-        }finally
-        {
-            try{
-                rs.close();
+            pst = connection.prepareStatement(sql);
+            resultSet = pst.executeQuery();
+            tbl_1.setModel(DbUtils.resultSetToTableModel(resultSet));
+
+        } catch (Exception e) {
+
+        } finally {
+            try {
+                resultSet.close();
                 pst.close();
-            }catch(Exception e){
-              
-                
-                
+            } catch (Exception e) {
+
             }
         }
-        
-        
-        
+
     }
-    
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -159,26 +152,23 @@ PreparedStatement pst = null;
 
     private void txt_searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchKeyReleased
         // TODO add your handling code here:
-        
-        try{
+
+        try {
             String sql = "select * from audit where emp_id=?";
 
-            pst = conn.prepareStatement(sql);
-            pst.setString(1,txt_search.getText());
-            rs=pst.executeQuery();
-            tbl_1.setModel(DbUtils.resultSetToTableModel(rs));
-            
-        }catch(Exception e)
-                {
-                    JOptionPane.showMessageDialog(null, e);
-                }
-        finally{
-            try{
-                rs.close();
+            pst = connection.prepareStatement(sql);
+            pst.setString(1, txt_search.getText());
+            resultSet = pst.executeQuery();
+            tbl_1.setModel(DbUtils.resultSetToTableModel(resultSet));
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        } finally {
+            try {
+                resultSet.close();
                 pst.close();
-            }catch(Exception e)
-            {
-                
+            } catch (Exception e) {
+
             }
         }
 
@@ -187,11 +177,11 @@ PreparedStatement pst = null;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         // TODO add your handling code here:
-
+        // Clear the table
         Update_table();
         txt_search.setText("");
-        
-        
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

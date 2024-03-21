@@ -15,15 +15,15 @@ import javax.swing.*;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
-
 /**
  *
  * @author Sagar
  */
 public class addEmployee extends javax.swing.JFrame {
-Connection conn = null;
-ResultSet rs = null;
-PreparedStatement pst = null;
+
+    Connection connection = null;
+    ResultSet rs = null;
+    PreparedStatement pst = null;
 
     /**
      * Creates new form addEmployee
@@ -33,11 +33,10 @@ PreparedStatement pst = null;
 
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
-        setLocation(size.width/2-getWidth()/2,size.height/2-getHeight()/2);
-        
-        conn = db.java_db();
-     
-        
+        setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
+
+        connection = db.java_db();
+
     }
 
     /**
@@ -434,101 +433,91 @@ PreparedStatement pst = null;
     }//GEN-LAST:event_txt_IdActionPerformed
 
     private void r_maleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r_maleActionPerformed
-         // TODO add your handling code here:
-         gender = "Male";
-         r_male.setSelected(true);
-         r_female.setSelected(false);
+        // TODO add your handling code here:
+        gender = "Male";
+        r_male.setSelected(true);
+        r_female.setSelected(false);
     }//GEN-LAST:event_r_maleActionPerformed
 
     private void r_femaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r_femaleActionPerformed
         // TODO add your handling code here:
 
         gender = "Female";
-         r_female.setSelected(true);
-         r_male.setSelected(false);
-        
+        r_female.setSelected(true);
+        r_male.setSelected(false);
+
     }//GEN-LAST:event_r_femaleActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
-        int x = JOptionPane.showConfirmDialog(null,"Do you want to add new record","Confirm Record",JOptionPane.YES_NO_OPTION);
-        if(x==0)
-        {
-        try {
-                String sql ="insert into staff_information " 
+        int x = JOptionPane.showConfirmDialog(null, "Do you want to add new record", "Confirm Record", JOptionPane.YES_NO_OPTION);
+        if (x == 0) {
+            try {
+                String sql = "insert into staff_information "
                         + "(first_name,last_name,Dob,Email,"
                         + "contact,Address1,Address2,Department,"
                         + "Salary,Apartment,"
                         + "Post_code, Designition,Date_hired,job_title,Status,Gender) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 
-                pst=conn.prepareStatement(sql);
-                pst.setString(1,txt_firstname.getText());
-                pst.setString(2,txt_lastname.getText());
-                pst.setString(3,txt_dob.getText());
-                pst.setString(4,txt_email.getText());
-                pst.setString(5,txt_contact.getText());
-                pst.setString(6,txt_address1.getText());
-                pst.setString(7,txt_address2.getText());
-                pst.setString(8,txt_department.getText());
-               // pst.setBytes(9,person_image);
-                pst.setString(9,txt_salary.getText());
-                pst.setString(10,txt_apt.getText());     
-                pst.setString(11,txt_pc.getText());
-                pst.setString(12,txt_designation.getText());
-                pst.setString(13,txt_doj.getText());
-                pst.setString(14,txt_job.getText());
-                pst.setString(15,txt_status.getText());         
+                pst = connection.prepareStatement(sql);
+                pst.setString(1, txt_firstname.getText());
+                pst.setString(2, txt_lastname.getText());
+                pst.setString(3, txt_dob.getText());
+                pst.setString(4, txt_email.getText());
+                pst.setString(5, txt_contact.getText());
+                pst.setString(6, txt_address1.getText());
+                pst.setString(7, txt_address2.getText());
+                pst.setString(8, txt_department.getText());
+                // pst.setBytes(9,person_image);
+                pst.setString(9, txt_salary.getText());
+                pst.setString(10, txt_apt.getText());
+                pst.setString(11, txt_pc.getText());
+                pst.setString(12, txt_designation.getText());
+                pst.setString(13, txt_doj.getText());
+                pst.setString(14, txt_job.getText());
+                pst.setString(15, txt_status.getText());
                 pst.setString(16, gender);
 
-                
                 pst.execute();
-                JOptionPane.showMessageDialog(null,"Data is saved successfully");
+                JOptionPane.showMessageDialog(null, "Data is saved successfully");
 
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
             }
-            catch (Exception e)
 
-            {
-                JOptionPane.showMessageDialog(null,e);
-            }
-        
-        try{
-            
-            String sq = "select * from staff_information where (id) NOT IN (select id from users)";
-            pst = conn.prepareStatement(sq);
-            rs = pst.executeQuery();
-            
-            while(rs.next())
-            {
-                String add1 = rs.getString("id");
-                String add2= rs.getString("first_name");
-                String add3 = rs.getString("Dob");
-                String result = add3.replace("/","");
-                String add4 = rs.getString("Department");
-             
-                String sql = "insert into users(division,username,password,id) values ('"+add4+"','"+add2+"','"+result+"','"+add1+"')" ;
-                pst = conn.prepareStatement(sql);
-                
-                pst.execute();
-                JOptionPane.showMessageDialog(null,"Account Created Succefully\n"+"Username: "+add2+"\nPassword:  "+result);
-            }
-        }catch(Exception e){
-            
-            JOptionPane.showMessageDialog(null,e);
-        }
-        
-            finally {
+            try {
 
-                try{
+                String sq = "select * from staff_information where (id) NOT IN (select id from users)";
+                pst = connection.prepareStatement(sq);
+                rs = pst.executeQuery();
+
+                while (rs.next()) {
+                    String add1 = rs.getString("id");
+                    String add2 = rs.getString("first_name");
+                    String add3 = rs.getString("Dob");
+                    String result = add3.replace("/", "");
+                    String add4 = rs.getString("Department");
+
+                    String sql = "insert into users(division,username,password,id) values ('" + add4 + "','" + add2 + "','" + result + "','" + add1 + "')";
+                    pst = connection.prepareStatement(sql);
+
+                    pst.execute();
+                    JOptionPane.showMessageDialog(null, "Account Created Succefully\n" + "Username: " + add2 + "\nPassword:  " + result);
+                }
+            } catch (Exception e) {
+
+                JOptionPane.showMessageDialog(null, e);
+            } finally {
+
+                try {
                     rs.close();
                     pst.close();
 
+                } catch (Exception e) {
                 }
-                 catch(Exception e){
-                   }
-             
-               
-         }
+
+            }
 
     }//GEN-LAST:event_jButton1ActionPerformed
     }
@@ -551,111 +540,95 @@ PreparedStatement pst = null;
         txt_apt.setText("");
         txt_doj.setText("");
         txt_designation.setText("");
-        
-        
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txt_searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchKeyReleased
         // TODO add your handling code here:
 
+        try {
 
-       try{
+            //String search = txt_search.getText();
+            String sql = "select * from staff_information where id= ? ";
 
-           //String search = txt_search.getText();
-           String sql ="select * from staff_information where id= ? ";
+            pst = connection.prepareStatement(sql);
+            pst.setString(1, txt_search.getText());
+            rs = pst.executeQuery();
 
-            pst=conn.prepareStatement(sql);
-            pst.setString(1,txt_search.getText());
-            rs=pst.executeQuery();
-            
-             
-            if(rs.next()==true)
-            {
-                String add1 =rs.getString("id");
+            if (rs.next() == true) {
+                String add1 = rs.getString("id");
                 txt_Id.setText(add1);
 
-                String add2 =rs.getString("first_name");
+                String add2 = rs.getString("first_name");
                 txt_firstname.setText(add2);
 
-                String add3 =rs.getString("last_name");
+                String add3 = rs.getString("last_name");
                 txt_lastname.setText(add3);
 
-                String add4 =rs.getString("Dob");
+                String add4 = rs.getString("Dob");
                 txt_dob.setText(add4);
 
-                String add5 =rs.getString("Email");
+                String add5 = rs.getString("Email");
                 txt_email.setText(add5);
 
-                String add6 =rs.getString("contact");
+                String add6 = rs.getString("contact");
                 txt_contact.setText(add6);
 
-                String add7 =rs.getString("Address1");
+                String add7 = rs.getString("Address1");
                 txt_address1.setText(add7);
 
-                String add8 =rs.getString("Department");
+                String add8 = rs.getString("Department");
                 txt_department.setText(add8);
-                
-                String add9 =rs.getString("Salary");
+
+                String add9 = rs.getString("Salary");
                 txt_salary.setText(add9);
 
-                String add10 =rs.getString("Address2");
+                String add10 = rs.getString("Address2");
                 txt_address2.setText(add10);
-                
-                String add11 =rs.getString("Apartment");
+
+                String add11 = rs.getString("Apartment");
                 txt_apt.setText(add11);
-                
-                String add12 =rs.getString("Post_code");
+
+                String add12 = rs.getString("Post_code");
                 txt_pc.setText(add12);
-                
-                String add13 =rs.getString("Date_hired");
+
+                String add13 = rs.getString("Date_hired");
                 txt_doj.setText(add13);
-                
-                String add14 =rs.getString("job_title");
+
+                String add14 = rs.getString("job_title");
                 txt_job.setText(add14);
-                
-                String add15 =rs.getString("Designition");
+
+                String add15 = rs.getString("Designition");
                 txt_designation.setText(add15);
-                
-                String add16 =rs.getString("Status");
+
+                String add16 = rs.getString("Status");
                 txt_status.setText(add16);
-                
+
                 String add18 = rs.getString("Gender");
-                       if(add18.equals("Male"))
-                       {
-                           r_male.setSelected(true);
-                       }else{
-                           r_female.setSelected(true);
-                       }
+                if (add18.equals("Male")) {
+                    r_male.setSelected(true);
+                } else {
+                    r_female.setSelected(true);
+                }
             }
-	 else {
-		JOptionPane.showMessageDialog(null,"Employee Not Found..");
-	  
-               }  
 
-                
-                
-               // biyte[] image = rs.getBytes("Image");
-                //ImageIcon imageIcon = new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(img.getWidth(), img.getHeight(), Image.SCALE_SMOOTH));
-                //img.setIcon(imageIcon);
+            // biyte[] image = rs.getBytes("Image");
+            //ImageIcon imageIcon = new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(img.getWidth(), img.getHeight(), Image.SCALE_SMOOTH));
+            //img.setIcon(imageIcon);
+        } catch (Exception e) {
 
-        }catch(Exception e){
-          
-        }
-        finally {
+        } finally {
 
-            try{
+            try {
 
                 rs.close();
                 pst.close();
 
-            }
-            catch(Exception e){
+            } catch (Exception e) {
 
             }
-         }
-        
-
-
+        }
 
 
     }//GEN-LAST:event_txt_searchKeyReleased
@@ -668,31 +641,27 @@ PreparedStatement pst = null;
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-int x = JOptionPane.showConfirmDialog(null,"Do you want to Delete record","Confirm Record ",JOptionPane.YES_NO_OPTION);
-        if(x==0)
-        {        
-        try{
-            String sql = "delete from staff_information where id = ?";
-            pst = conn.prepareStatement(sql);
-            pst.setString(1,txt_Id.getText());
-            pst.execute();
-            
-            JOptionPane.showMessageDialog(null, "Record Deleted");
-        
-        }catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null, "e");
-        }finally{
-            try{
-                rs.close(); 
-                pst.close();
-            }catch(Exception e)
-            {
-                
+        int x = JOptionPane.showConfirmDialog(null, "Do you want to Delete record", "Confirm Record ", JOptionPane.YES_NO_OPTION);
+        if (x == 0) {
+            try {
+                String sql = "delete from staff_information where id = ?";
+                pst = connection.prepareStatement(sql);
+                pst.setString(1, txt_Id.getText());
+                pst.execute();
+
+                JOptionPane.showMessageDialog(null, "Record Deleted");
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "e");
+            } finally {
+                try {
+                    rs.close();
+                    pst.close();
+                } catch (Exception e) {
+
+                }
             }
-        }
-        
-        
+
         }
 
 
@@ -701,53 +670,46 @@ int x = JOptionPane.showConfirmDialog(null,"Do you want to Delete record","Confi
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
 
-        int x = JOptionPane.showConfirmDialog(null,"Do you want to Update record","Confirm Record",JOptionPane.YES_NO_OPTION);
-        if(x==0)
-        
+        int x = JOptionPane.showConfirmDialog(null, "Do you want to Update record", "Confirm Record", JOptionPane.YES_NO_OPTION);
+        if (x == 0) {
+            try {
+                String val = txt_firstname.getText();
+                String val2 = txt_lastname.getText();
+                String val3 = txt_dob.getText();
+                String val4 = txt_Id.getText();
+                String val5 = txt_email.getText();
+                String val6 = txt_contact.getText();
+                String val7 = txt_address1.getText();
+                String val8 = txt_address2.getText();
+                String val9 = txt_department.getText();
+                String val10 = txt_apt.getText();
+                String val11 = txt_pc.getText();
+                String val12 = txt_designation.getText();
+                String val13 = txt_status.getText();
+                String val14 = txt_salary.getText();
+                String val15 = txt_job.getText();
+                String val16 = txt_doj.getText();
+                String val17 = gender;
 
-        {try{
-            String val = txt_firstname.getText();
-            String val2 = txt_lastname.getText();
-            String val3 = txt_dob.getText();
-            String val4 = txt_Id.getText();
-            String val5 = txt_email.getText();
-            String val6 = txt_contact.getText();
-            String val7 = txt_address1.getText();
-            String val8 = txt_address2.getText();
-            String val9 = txt_department.getText();
-            String val10 = txt_apt.getText();
-            String val11 = txt_pc.getText();
-            String val12 = txt_designation.getText();
-            String val13 = txt_status.getText();
-            String val14 = txt_salary.getText();
-            String val15 = txt_job.getText();
-            String val16 = txt_doj.getText();
-            String val17 = gender;
-            
-            
-            String sql = "update staff_information  set first_name = '"+val+"',"
-                    + "last_name = '"+val2+"',Dob = '"+val3+"',Email = '"+val5+"',contact = '"+val6+"',"
-                    + "Address1 = '"+val7+"',Address2 = '"+val8+"',Department = '"+val9+"',Apartment = '"+val10+"',"
-                    + "Post_code = '"+val11+"',Designition = '"+val12+"',Status = '"+val13+"',Salary = '"+val14+"',"
-                    + "job_title = '"+val15+"',Date_hired = '"+val16+"',Gender = '"+val17+"' where id = '"+val4+"' " ;
-            pst = conn.prepareStatement(sql);
-            pst.execute();
-            JOptionPane.showMessageDialog(null, "Record Updated ");
-            
-            
-        }catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null, e);
-        }finally{
-            try{
-                
-                
-            }catch(Exception e){
-                
+                String sql = "update staff_information  set first_name = '" + val + "',"
+                        + "last_name = '" + val2 + "',Dob = '" + val3 + "',Email = '" + val5 + "',contact = '" + val6 + "',"
+                        + "Address1 = '" + val7 + "',Address2 = '" + val8 + "',Department = '" + val9 + "',Apartment = '" + val10 + "',"
+                        + "Post_code = '" + val11 + "',Designition = '" + val12 + "',Status = '" + val13 + "',Salary = '" + val14 + "',"
+                        + "job_title = '" + val15 + "',Date_hired = '" + val16 + "',Gender = '" + val17 + "' where id = '" + val4 + "' ";
+                pst = connection.prepareStatement(sql);
+                pst.execute();
+                JOptionPane.showMessageDialog(null, "Record Updated ");
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            } finally {
+                try {
+
+                } catch (Exception e) {
+
+                }
+
             }
-            
-        }
-
 
         }
 
@@ -836,10 +798,8 @@ int x = JOptionPane.showConfirmDialog(null,"Do you want to Delete record","Confi
     private javax.swing.JTextField txt_status;
     // End of variables declaration//GEN-END:variables
 
-    
-   // private ImageIcon format = null;
+    // private ImageIcon format = null;
     //String filename = null;
     //byte[] person_image = null;
-    
     private String gender;
 }
