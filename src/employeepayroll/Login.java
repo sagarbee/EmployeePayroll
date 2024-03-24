@@ -141,7 +141,7 @@ public class Login extends javax.swing.JFrame {
         jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, 240, 10));
 
-        txt_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "sales" }));
+        txt_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Manager1", "Manager2" }));
         txt_combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_comboActionPerformed(evt);

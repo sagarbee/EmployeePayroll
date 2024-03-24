@@ -42,10 +42,10 @@ public class Audit extends javax.swing.JFrame {
 
         try {
 
-            String sql = "select * from Audit";
+            String sql = "select * from Audit order by audit_id desc";
             pst = connection.prepareStatement(sql);
             resultSet = pst.executeQuery();
-            tbl_1.setModel(DbUtils.resultSetToTableModel(resultSet));
+            auditTable.setModel(DbUtils.resultSetToTableModel(resultSet));
 
         } catch (Exception e) {
 
@@ -73,7 +73,7 @@ public class Audit extends javax.swing.JFrame {
         txt_search = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbl_1 = new javax.swing.JTable();
+        auditTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -97,7 +97,7 @@ public class Audit extends javax.swing.JFrame {
             }
         });
 
-        tbl_1.setModel(new javax.swing.table.DefaultTableModel(
+        auditTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -108,7 +108,7 @@ public class Audit extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tbl_1);
+        jScrollPane2.setViewportView(auditTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,12 +154,12 @@ public class Audit extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         try {
-            String sql = "select * from audit where emp_id=?";
+            String sql = "select * from audit where emp_id=? ORDER BY audit_id DESC";
 
             pst = connection.prepareStatement(sql);
             pst.setString(1, txt_search.getText());
             resultSet = pst.executeQuery();
-            tbl_1.setModel(DbUtils.resultSetToTableModel(resultSet));
+            auditTable.setModel(DbUtils.resultSetToTableModel(resultSet));
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -220,10 +220,10 @@ public class Audit extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable auditTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tbl_1;
     private javax.swing.JTextField txt_search;
     // End of variables declaration//GEN-END:variables
 }
