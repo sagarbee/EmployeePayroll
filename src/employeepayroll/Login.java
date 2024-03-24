@@ -197,7 +197,8 @@ public class Login extends javax.swing.JFrame {
 
             if (user != null) {
                 JOptionPane.showMessageDialog(null, "Successfully Login");
-
+                Emp.empname = username;
+                Emp.empId = user.getId(); 
                 MainMenu j = new MainMenu();
                 j.setVisible(true);
                 this.dispose();
@@ -221,7 +222,7 @@ public class Login extends javax.swing.JFrame {
                     pstmt.setString(3, "Logged In");
                     pstmt.executeUpdate();
                 }
-
+                
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Please Enter Correct username and Password");

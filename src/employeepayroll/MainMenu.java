@@ -44,8 +44,8 @@ public class MainMenu extends javax.swing.JFrame {
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
 
-        lbl_emp.setText(String.valueOf(Emp.empname).toString());
-        
+        lbl_emp.setText(Emp.empname);
+
     }
 
     /**
@@ -57,7 +57,7 @@ public class MainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        employeeName = new javax.swing.JLabel();
         lbl_emp = new javax.swing.JLabel();
         logoutBtn = new javax.swing.JButton();
         employeeManager = new javax.swing.JButton();
@@ -74,7 +74,7 @@ public class MainMenu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("Employee Logged ID :");
+        employeeName.setText("Current Username  :");
 
         lbl_emp.setText(" ");
 
@@ -181,7 +181,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(logoutBtn))
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jLabel1)
+                .addComponent(employeeName)
                 .addGap(18, 18, 18)
                 .addComponent(lbl_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -218,7 +218,7 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(allowance, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(employeeName)
                     .addComponent(lbl_emp))
                 .addContainerGap())
         );
@@ -235,6 +235,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         try {
             System.out.println("Logged out");
+
             Date currentDate = GregorianCalendar.getInstance().getTime();
             DateFormat df = DateFormat.getDateInstance();
             String dateString = df.format(currentDate);
@@ -246,16 +247,17 @@ public class MainMenu extends javax.swing.JFrame {
             String value0 = timeString;
             String values = dateString;
 
-            int value = Emp.empId;
-            String reg = "INSERT INTO audit(emp_id, date, status) VALUES (?, ?, 'Logged Out')";
-
+            int value = Emp.empId; // Fetch the user ID from the Emp class
+            String reg = "INSERT INTO audit(emp_id, date, status) VALUES (?, ?, ?)";
             try (PreparedStatement pstmt = connection.prepareStatement(reg)) {
                 pstmt.setInt(1, value);
                 pstmt.setString(2, value0 + " / " + values);
+                pstmt.setString(3, "Logged Out");
                 pstmt.executeUpdate();
             }
 
             this.dispose();
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
@@ -266,7 +268,7 @@ public class MainMenu extends javax.swing.JFrame {
                 if (pst != null) {
                     pst.close();
                 }
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
@@ -380,8 +382,8 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton allowance;
     private javax.swing.JButton deductSalary;
     private javax.swing.JButton employeeManager;
+    private javax.swing.JLabel employeeName;
     private javax.swing.JButton jButton7;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
