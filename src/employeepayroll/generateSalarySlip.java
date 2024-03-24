@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
  *
  * @author sagar
  */
-public class generateSalarySlip extends javax.swing.JFrame {
+public class GenerateSalarySlip extends javax.swing.JFrame {
 
 Connection conn=null;
 ResultSet rs=null;
@@ -33,7 +33,7 @@ PreparedStatement pst=null;
     /**
      * Creates new form generateSalarySlip
      */
-    public generateSalarySlip() {
+    public GenerateSalarySlip() {
         initComponents();
         
         conn=db.java_db();
@@ -564,20 +564,21 @@ PreparedStatement pst=null;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(generateSalarySlip.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GenerateSalarySlip.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(generateSalarySlip.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GenerateSalarySlip.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(generateSalarySlip.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GenerateSalarySlip.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(generateSalarySlip.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GenerateSalarySlip.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new generateSalarySlip().setVisible(true);
+                new GenerateSalarySlip().setVisible(true);
             }
         });
     }

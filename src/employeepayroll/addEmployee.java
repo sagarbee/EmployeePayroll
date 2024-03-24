@@ -19,7 +19,7 @@ import javax.swing.JFileChooser;
  *
  * @author Sagar
  */
-public class addEmployee extends javax.swing.JFrame {
+public class AddEmployee extends javax.swing.JFrame {
 
     Connection connection = null;
     ResultSet rs = null;
@@ -28,7 +28,7 @@ public class addEmployee extends javax.swing.JFrame {
     /**
      * Creates new form addEmployee
      */
-    public addEmployee() {
+    public AddEmployee() {
         initComponents();
 
         Toolkit toolkit = getToolkit();
@@ -736,20 +736,21 @@ public class addEmployee extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(addEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(addEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(addEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(addEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new addEmployee().setVisible(true);
+                new AddEmployee().setVisible(true);
             }
         });
     }

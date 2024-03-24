@@ -13,12 +13,14 @@ import javax.swing.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Date;
-
+import dao.UserDao;
+import entity.UserLogin;
+import java.util.HashMap;
 /**
  *
  * @author Sagar
  */
-public class log extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
     Connection connection = null;
     ResultSet resultSet = null;
@@ -27,7 +29,7 @@ public class log extends javax.swing.JFrame {
     /**
      * Creates new form log
      */
-    public log() {
+    public Login() {
         initComponents();
 
         Toolkit toolkit = getToolkit();
@@ -72,7 +74,7 @@ public class log extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         txt_combo = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        login = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -147,13 +149,13 @@ public class log extends javax.swing.JFrame {
         });
         jPanel1.add(txt_combo, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 260, 130, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/login.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/login.png"))); // NOI18N
+        login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                loginActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 330, -1, -1));
+        jPanel1.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 330, -1, -1));
 
         jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, 240, 10));
@@ -174,69 +176,72 @@ public class log extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
         // TODO add your handling code here:
 
-        String sql = "select id,username,password,division from users where (username = ? and password = ? and division = ?)";
+        String username = txt_username.getText();
+        String password = txt_password.getText();
+        String division = txt_combo.getSelectedItem().toString();
 
+        LoginValidator validator = new LoginValidator();
+        HashMap<String, String> errors = validator.validateLogin(username, password, division);
+
+        if (!errors.isEmpty()) {
+            JOptionPane.showMessageDialog(null, errors.values().toArray()[0]);
+            return;
+        }
+
+        UserDao userDAO = new UserDao(connection);
         try {
-            int count = 0;
-            pst = connection.prepareStatement(sql);
-            pst.setString(1, txt_username.getText());
-            pst.setString(2, txt_password.getText());
-            pst.setString(3, txt_combo.getSelectedItem().toString());
+            UserLogin user = userDAO.getUser(username, password, division);
 
-            resultSet = pst.executeQuery();
-            while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                Emp.empId = id;
-                String username = resultSet.getString("username");
-                Emp.empname = username;
-                count = count + 1;
-            }
-            String access = (txt_combo.getSelectedItem().toString());
-            if (access == "Admin") {
-                if (count == 1) {
-                    JOptionPane.showMessageDialog(null, "Suceessfully Login");
-                    MainMenu j = new MainMenu();
-                    j.setVisible(true);
-                    this.dispose();
+            if (user != null) {
+                JOptionPane.showMessageDialog(null, "Successfully Login");
 
-                    Date currentDate = GregorianCalendar.getInstance().getTime();
-                    DateFormat df = DateFormat.getDateInstance();
-                    String dateString = df.format(currentDate);
+                MainMenu j = new MainMenu();
+                j.setVisible(true);
+                this.dispose();
 
-                    Date d = new Date();
-                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                    String timeString = sdf.format(d);
+                Date currentDate = GregorianCalendar.getInstance().getTime();
+                DateFormat df = DateFormat.getDateInstance();
+                String dateString = df.format(currentDate);
 
-                    String value0 = timeString;
-                    String values = dateString;
+                Date d = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                String timeString = sdf.format(d);
 
-                    int value = Emp.empId;
-                    String reg = "insert into audit(emp_id,date,status) values ('" + value + "','" + value0 + " / " + values + "','Logged In')";
-                    pst = connection.prepareStatement(reg);
-                    pst.execute();
-                    this.dispose();
+                String value0 = timeString;
+                String values = dateString;
 
-                } else {
-                    JOptionPane.showMessageDialog(null, "Please Enter Correct username and Password");
+                int value = user.getId();
+                String reg = "INSERT INTO audit(emp_id, date, status) VALUES (?, ?, ?)";
+                try (PreparedStatement pstmt = connection.prepareStatement(reg)) {
+                    pstmt.setInt(1, value);
+                    pstmt.setString(2, value0 + " / " + values);
+                    pstmt.setString(3, "Logged In");
+                    pstmt.executeUpdate();
                 }
+
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Please Enter Correct username and Password");
             }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         } finally {
-
             try {
-                resultSet.close();
-                pst.close();
-            } catch (Exception e) {
-
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_loginActionPerformed
 
     private void txt_comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_comboActionPerformed
         // TODO add your handling code here:
@@ -267,20 +272,21 @@ public class log extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(log.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(log.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(log.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(log.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new log().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
@@ -288,7 +294,6 @@ public class log extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu ibl_date;
     private javax.swing.JMenu ibl_time;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
@@ -298,6 +303,7 @@ public class log extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JButton login;
     private javax.swing.JLabel password;
     private javax.swing.JComboBox<String> txt_combo;
     private javax.swing.JPasswordField txt_password;

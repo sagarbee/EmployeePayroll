@@ -29,22 +29,21 @@ import java.util.Date;
  * @author Sagar
  */
 public class MainMenu extends javax.swing.JFrame {
-Connection conn = null;
-ResultSet rs = null;
-PreparedStatement pst = null;
+
+    Connection connection = null;
+    ResultSet resultSet = null;
+    PreparedStatement pst = null;
 
     /**
      * Creates new form MainMenu
      */
     public MainMenu() {
         initComponents();
-        
-         
+        connection = db.java_db();
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
-        setLocation(size.width/2-getWidth()/2,size.height/2-getHeight()/2);
-       
-        
+        setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
+
         lbl_emp.setText(String.valueOf(Emp.empname).toString());
         
     }
@@ -60,17 +59,17 @@ PreparedStatement pst = null;
 
         jLabel1 = new javax.swing.JLabel();
         lbl_emp = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        logoutBtn = new javax.swing.JButton();
+        employeeManager = new javax.swing.JButton();
+        search = new javax.swing.JButton();
+        allowance = new javax.swing.JButton();
+        updateSalary = new javax.swing.JButton();
+        deductSalary = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        aboutMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -79,45 +78,45 @@ PreparedStatement pst = null;
 
         lbl_emp.setText(" ");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/logout.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        logoutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/logout.png"))); // NOI18N
+        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                logoutBtnActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Employee Manager");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        employeeManager.setText("Employee Manager");
+        employeeManager.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                employeeManagerActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Search");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        search.setText("Search");
+        search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                searchActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Allowance");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        allowance.setText("Allowance");
+        allowance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                allowanceActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Update salary");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        updateSalary.setText("Update salary");
+        updateSalary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                updateSalaryActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Deduction");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        deductSalary.setText("Deduct Salary");
+        deductSalary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                deductSalaryActionPerformed(evt);
             }
         });
 
@@ -168,8 +167,8 @@ PreparedStatement pst = null;
 
         jMenuBar1.add(jMenu3);
 
-        jMenu4.setText("About");
-        jMenuBar1.add(jMenu4);
+        aboutMenu.setText("About");
+        jMenuBar1.add(aboutMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -179,7 +178,7 @@ PreparedStatement pst = null;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 845, Short.MAX_VALUE)
-                .addComponent(jButton1))
+                .addComponent(logoutBtn))
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel1)
@@ -189,34 +188,34 @@ PreparedStatement pst = null;
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(allowance, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(employeeManager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(updateSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(deductSalary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(72, 72, 72))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jButton1)
+                .addComponent(logoutBtn)
                 .addGap(158, 158, 158)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(employeeManager, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(updateSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deductSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(allowance, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -227,98 +226,101 @@ PreparedStatement pst = null;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
 
-        log x = new log();
+        Login x = new Login();
         x.setVisible(true);
         this.dispose();
-        
-        try{
-            
-                    System.out.println("Logged out");
-                    Date currentDate = GregorianCalendar.getInstance().getTime();
-                    DateFormat df = DateFormat.getDateInstance();
-                    String dateString =df.format(currentDate);
-                    
-                    Date d = new Date();
-                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                    String timeString = sdf.format(d);
-                    
-                    
-                    String value0 = timeString;
-                    String values = dateString;
-                    
-                    int value = Emp.empId;
-                    String reg = "insert into audit(emp_id,date,status) values ('"+value+"','"+value0+" / "+values+"','Logged Out')";
-                    pst = conn.prepareStatement(reg);
-                    pst.execute();
-                    this.dispose();
-            
-            
-        }catch(Exception e){
-            
-        }finally{
-            try{
-                rs.close();
-                pst.close();
-            }catch(Exception e){
-                
-                
+
+        try {
+            System.out.println("Logged out");
+            Date currentDate = GregorianCalendar.getInstance().getTime();
+            DateFormat df = DateFormat.getDateInstance();
+            String dateString = df.format(currentDate);
+
+            Date d = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            String timeString = sdf.format(d);
+
+            String value0 = timeString;
+            String values = dateString;
+
+            int value = Emp.empId;
+            String reg = "INSERT INTO audit(emp_id, date, status) VALUES (?, ?, 'Logged Out')";
+
+            try (PreparedStatement pstmt = connection.prepareStatement(reg)) {
+                pstmt.setInt(1, value);
+                pstmt.setString(2, value0 + " / " + values);
+                pstmt.executeUpdate();
+            }
+
+            this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
+    }//GEN-LAST:event_logoutBtnActionPerformed
+
+    private void allowanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allowanceActionPerformed
         // TODO add your handling code here:
-        allowance x = new allowance();
+        Allowance x = new Allowance();
         x.setVisible(true);
-        
-    }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-         updateSalary x = new updateSalary();
-         x.setVisible(true);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_allowanceActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void updateSalaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateSalaryActionPerformed
         // TODO add your handling code here:
-        
-        deductions x = new deductions();
+        UpdateSalary x = new UpdateSalary();
         x.setVisible(true);
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_updateSalaryActionPerformed
+
+    private void deductSalaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deductSalaryActionPerformed
+        // TODO add your handling code here:
+
+        Deductions x = new Deductions();
+        x.setVisible(true);
+    }//GEN-LAST:event_deductSalaryActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void employeeManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeManagerActionPerformed
 
         // TODO add your handling code here:
-
-        addEmployee x = new addEmployee();
+        AddEmployee x = new AddEmployee();
         x.setVisible(true);
-    
-    }//GEN-LAST:event_jButton2ActionPerformed
+
+    }//GEN-LAST:event_employeeManagerActionPerformed
 
     private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
         // TODO add your handling code here:
-                                
+
     }//GEN-LAST:event_jMenu3ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
         // TODO add your handling code here:
-         searchEmployee x = new searchEmployee();
+        SearchEmployee x = new SearchEmployee();
         x.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_searchActionPerformed
 
     private void jMenu3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jMenu3KeyPressed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jMenu3KeyPressed
 
     private void jMenu3MenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_jMenu3MenuKeyPressed
@@ -327,15 +329,15 @@ PreparedStatement pst = null;
 
     private void jMenu3MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu3MenuSelected
         // TODO add your handling code here:
-                                
-                              
+
+
     }//GEN-LAST:event_jMenu3MenuSelected
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-                                Audit obj=new Audit();
-				obj.setVisible(true);
-        
+        Audit obj = new Audit();
+        obj.setVisible(true);
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
@@ -374,18 +376,18 @@ PreparedStatement pst = null;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JMenu aboutMenu;
+    private javax.swing.JButton allowance;
+    private javax.swing.JButton deductSalary;
+    private javax.swing.JButton employeeManager;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel lbl_emp;
+    private javax.swing.JButton logoutBtn;
+    private javax.swing.JButton search;
+    private javax.swing.JButton updateSalary;
     // End of variables declaration//GEN-END:variables
 }
